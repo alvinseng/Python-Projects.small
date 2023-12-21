@@ -1,39 +1,41 @@
-from turtle import Turtle, Screen
+import turtle as t
 import random
 
-t = Turtle()
-s = Screen()
-
+tt = t.Turtle()
+ts = t.Screen()
+rand = random
 
 """Turtle style and config"""
-t.shape("turtle")
+tt.shape("circle")
+tt.hideturtle()
+tt.pensize(1)
+ts.colormode(255)
 
-# for i in range(0, 100):
-#     tim.color("blue", "red", "green", "yellow")
-#     tim.speed(100)
-#     tim.begin_fill()
-#     tim.triangle(100)
-#     tim.end_fill()
-#     tim.penup()
-#     tim.forward(50)
-#     tim.pendown()
+def random_color():
+    R = rand.randint(0,255)
+    G = rand.randint(0, 255)
+    B = rand.randint(0, 255)
+    random_color = (R, G, B)
+    return random_color
 
 
-# for i in range(100):
-#     tim.color("blue")
-#     tim.forward(10)
-#     tim.up()
-#     tim.forward(10)
-#     tim.pd()
+for _ in range(200):
+    # tt.forward(30)
+    tt.circle(100)
+    tt.pencolor(random_color())
 
 
 
-angle = 0
-color = ["blue", "red", "orange", "green", "yellow", "purple", "black"]
-t.pencolor()
-t.circle(100)
+
+
+
+
+
+
+
+
 
 
 
 """Screen style and config"""
-s.exitonclick()
+ts.exitonclick()
