@@ -13,5 +13,7 @@ class CarManager(Turtle):
         super().__init__()
 
 
-    def car(self):
+    def car_design(self):
         self.shape("square")
+        car_color = random.choices(COLORS)
+        self.color(car_color)

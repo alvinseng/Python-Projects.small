@@ -8,13 +8,15 @@ class Player(Turtle):
 
     def __init__(self):
         super().__init__()
-        self.player()
+        self.design()
 
-    def player(self):
+    def design(self):
         self.shape("turtle")
         self.color("black")
         self.pu()
 
     def up(self):
+        self.seth(90)
+        self.ycor() + 10
         pass
 
