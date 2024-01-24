@@ -2,6 +2,7 @@ from turtle import Screen
 from paddle import Paddle
 from score import Scoreboard
 from ball import Ball
+import time
 
 
 screen = Screen()
@@ -11,13 +12,13 @@ screen.title("Pong")
 screen.tracer(0)
 
 ball = Ball()
-score = Scoreboard()
+
 
 r_paddle = Paddle((350, 0))
 l_paddle = Paddle((-350, 0))
 
-p1_score = score.player_score((300, 260))
-p2_score = score.player_score((-300, 260))
+p1_score = Scoreboard((150, 220))
+p2_score = Scoreboard((-150, 220))
 
 
 screen.listen()
@@ -30,11 +31,12 @@ screen.onkeypress(l_paddle.go_down, "s")
 game_is_on = True
 while game_is_on:
     screen.update()
-    score.scoreboard_update()
+    time.sleep(0.1)
     r_paddle
     l_paddle
     p1_score
     p2_score
+    ball.move()
 
 
 
