@@ -8,15 +8,15 @@ class Player(Turtle):
 
     def __init__(self):
         super().__init__()
-        self.design()
 
     def design(self):
         self.shape("turtle")
         self.color("black")
         self.pu()
-
-    def up(self):
         self.seth(90)
-        self.ycor() + 10
-        pass
+        self.goto(STARTING_POSITION)
+
+    def go_up(self):
+        new_y = self.ycor() + MOVE_DISTANCE
+        self.goto(self.xcor(), new_y)
 

@@ -11,9 +11,10 @@ screen.tracer(0)
 
 player = Player()
 score = Scoreboard()
+car = CarManager()
 
 screen.listen()
-screen.onkey(player.up, "Up")
+screen.onkey(player.go_up, "Up")
 
 
 game_is_on = True
@@ -21,6 +22,10 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
     player.design()
+    car.car_move()
+
+    if car.xcor() != -300:
+        car.car_move()
 
 
 
