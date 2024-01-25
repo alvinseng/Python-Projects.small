@@ -21,11 +21,19 @@ game_is_on = True
 while game_is_on:
     time.sleep(0.1)
     screen.update()
-    player.design()
-    car.car_move()
 
-    if car.xcor() != -300:
+
+    # player movement
+    if player.ycor() > 280:
+        score.score_keeping()
+        player.spawn()
+
+    # Cars movement from right to left
+    if car.xcor() != -320:
         car.car_move()
+
+    if player
+
 
 
 

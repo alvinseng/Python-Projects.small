@@ -8,12 +8,13 @@ class Player(Turtle):
 
     def __init__(self):
         super().__init__()
-
-    def design(self):
         self.shape("turtle")
         self.color("black")
         self.pu()
         self.seth(90)
+        self.goto(STARTING_POSITION)
+
+    def spawn(self):
         self.goto(STARTING_POSITION)
 
     def go_up(self):

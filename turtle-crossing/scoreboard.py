@@ -7,12 +7,20 @@ class Scoreboard(Turtle):
 
     def __init__(self):
         super().__init__()
-        self.score = 0
         self.pu()
-        self.goto(-240,260)
         self.hideturtle()
-        self.write(f"Score: {self.score}", align="left", font=FONT)
+        self.level = 0
+        self.crossing_level()
+
+    def crossing_level(self):
+        self.clear()
+        self.goto(-240,260)
+        self.write(f"Level: {self.level}", align="left", font=FONT)
 
     def score_keeping(self):
-        self.score += 1
-        pass
+        self.level += 1
+        self.crossing_level()
+
+    def car_collision(self):
+        self.write("Game Over", align="center", font=FONT)
+
