@@ -14,7 +14,7 @@ class Scoreboard(Turtle):
 
     def crossing_level(self):
         self.clear()
-        self.goto(-240,260)
+        self.goto(-260,260)
         self.write(f"Level: {self.level}", align="left", font=FONT)
 
     def score_keeping(self):

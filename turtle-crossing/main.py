@@ -16,28 +16,22 @@ car = CarManager()
 screen.listen()
 screen.onkey(player.go_up, "Up")
 
-car_spawn = car.create_car()
-
 
 game_is_on = True
 while game_is_on:
     time.sleep(0.1)
     screen.update()
+    car.create_car()
     car.move()
 
-    # player movement
     if player.ycor() > 280:
-        score.score_keeping()
         player.spawn()
+        score.score_keeping()
 
-    # for _ in range(6):
-    #     car_spawn
+    if player.ycor() == car.move():
+        print("ouch")
+        score.car_collision()
 
-    # Cars movement from right to left
-    if car.xcor != -300:
-        car.create_car()
-
-    # if player
 
 
 

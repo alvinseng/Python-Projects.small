@@ -15,7 +15,8 @@ class Player(Turtle):
         self.goto(STARTING_POSITION)
 
     def spawn(self):
-        self.goto(STARTING_POSITION)
+        if self.ycor() > FINISH_LINE_Y:
+            self.goto(STARTING_POSITION)
 
     def go_up(self):
         new_y = self.ycor() + MOVE_DISTANCE
