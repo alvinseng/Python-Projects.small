@@ -28,9 +28,13 @@ while game_is_on:
         player.spawn()
         score.score_keeping()
 
-    if player.ycor() == car.move():
-        print("ouch")
-        score.car_collision()
+    #detect collision
+    for c in car.new_car:
+        if c.distance(player) < 20:
+            print("ouch")
+            score.car_collision()
+
+
 
 
 
