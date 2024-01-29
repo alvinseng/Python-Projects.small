@@ -12,11 +12,16 @@ class Player(Turtle):
         self.color("black")
         self.pu()
         self.seth(90)
-        self.goto(STARTING_POSITION)
+        self.go_to_start()
 
-    def spawn(self):
+    def at_finishline(self):
         if self.ycor() > FINISH_LINE_Y:
-            self.goto(STARTING_POSITION)
+            return True
+        else:
+            return False
+
+    def go_to_start(self):
+        self.goto(STARTING_POSITION)
 
     def go_up(self):
         new_y = self.ycor() + MOVE_DISTANCE
