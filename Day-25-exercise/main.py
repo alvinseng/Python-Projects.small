@@ -17,17 +17,23 @@
 
 import pandas
 
-data = pandas.read_csv("weather_data.csv")
+# data = pandas.read_csv("weather_data.csv")
 # # print(data)
 #
 # temp_list = data["temp"].to_list()
-# temp_mean = data["temp"].mean()
-temp_max = data["temp"].max()
+# # temp_mean = data["temp"].mean()
+# temp_max = data["temp"].max()
 # print(temp_max)
 
 # print(data[data.temp == temp_max])
 
-monday = data[data.day == "Monday"]
-monday_temp = monday.temp[0]
-monday_temp_F = monday_temp * 9/5 + 32
-print(monday_temp_F)
+# monday = data[data.day == "Monday"]
+# monday_temp = monday.temp[0]
+# monday_temp_F = monday_temp * 9/5 + 32
+# print(monday_temp_F)
+
+
+data = pandas.read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
+fur_color = data["Primary Fur Color"]
+fur_mean = fur_color.sum()
+print(fur_mean)
