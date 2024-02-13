@@ -33,10 +33,7 @@ while len(states_list) < 50:
     state_coord = data[data.state == answer_state]
 
     if answer_state == "Exit":
-        missed_states = []
-        for states in state_data:
-            if states not in states_list:
-                missed_states.append(states)
+        missed_states = [states for states in state_data if states not in states_list]
         new_data = pandas.DataFrame(missed_states)
         new_data.to_csv("States_to_learn.csv")
         break
