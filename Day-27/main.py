@@ -36,13 +36,12 @@ conversion_label.grid(column=1, row=1)
 km_label = Label(text="Km")
 km_label.grid(column=2, row=1)
 
-
 #Input
+
 input = Entry(width=10)
 input.insert(END, string='0')
 input.get()
 input.grid(column=1, row=0)
-
 
 
 
