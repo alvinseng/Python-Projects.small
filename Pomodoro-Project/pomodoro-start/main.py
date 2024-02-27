@@ -10,24 +10,36 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
+timer = None
 
 # ---------------------------- TIMER RESET ------------------------------- # 
-
+def reset_timer():
+    window.after_cancel(timer)
+    canvas.itemconfig(timer_txt, text="00:00")
+    timer_label.config(text="Timer")
+    check_marks.config(text="")
+    global reps
+    reps = 0
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_timer():
     global reps
+    reps += 1
+
     work_sec = WORK_MIN * 60
     short_break_sec = SHORT_BREAK_MIN * 60
     long_break_sec = LONG_BREAK_MIN * 60
 
-    #If it's the 1st/3rd/5th/7th rep:
-    countdown(work_sec)
-
-    #If it's the 8th rep:
-    countdown(long_break_sec)
-
-    # If it's 2nd/4th/6th rep:
-    countdown(short_break_sec)
+    if reps % 8 == 0:
+        timer_label.config(text="Long Break", fg=RED)
+        countdown(long_break_sec)
+    elif reps % 2 == 0:
+        timer_label.config(text="Short Break", fg=PINK)
+        # If it's 2nd/4th/6th rep:
+        countdown(short_break_sec)
+    else:
+        timer_label.config(text="Work", fg=GREEN)
+        # If it's the 1st/3rd/5th/7th rep:
+        countdown(work_sec)
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 def countdown(count):
 
@@ -38,13 +50,20 @@ def countdown(count):
 
     canvas.itemconfig(timer_txt, text=f"{count_min}:{count_sec}")
     if count > 0:
-        window.after(1000, countdown, count - 1)
-
+        global timer
+        timer = window.after(1000, countdown, count - 1)
+    else:
+        start_timer()
+        mark = ""
+        for _ in range(math.floor(reps/ 2)):
+            marks += "✅"
+        check_marks.config(text=marks)
 
 # ---------------------------- UI SETUP ------------------------------- #
+from tkinter import *
 
 window = Tk()
-window.title("Pomodoro")
+window.title("Pomodoro Timer")
 window.config(padx=100, pady=50, bg=YELLOW)
 
 
@@ -62,10 +81,10 @@ start_button = Button(text="Start", highlightthickness=0, bg=YELLOW, command=sta
 start_button.grid(column=0, row=2)
 
 
-reset_button = Button(text="Reset", highlightthickness=0, bg=YELLOW)
+reset_button = Button(text="Reset", highlightthickness=0, bg=YELLOW, command=reset_timer)
 reset_button.grid(column=2, row=2)
 
-check_marks = Label(text="✅", bg=YELLOW)
+check_marks = Label(text="", bg=YELLOW)
 check_marks.grid(column=1, row=3)
 
 
