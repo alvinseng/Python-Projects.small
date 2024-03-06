@@ -1,50 +1,40 @@
+import random
 from tkinter import *
 from tkinter import messagebox
-import random
+from random import randint, choice, shuffle
+import pyperclip
+
 WHITE = "#ffffff"
 FONT_NAME = "Courier"
 BLACK = "#000000"
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-           'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-           'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+def password_generator():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+               'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+               'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-password_list = []
+    letter_list = [choice(letters) for _ in range(randint(8,10))]
+    # for char in range(0, nr_letters):
+    #     letter_list += letters[random.randint(0, len(letters) - 1)]
 
-nr_letters = random.randint(8,10)
-nr_symbols = random.randint(2,4)
-nr_numbers = random.randint(2,4)
+    sym_list = [choice(symbols) for _ in range(randint(2,4))]
+    # for sym in range(0, nr_symbols):
+    #     sym_list += symbols[random.randint(0, len(symbols) - 1)]
 
-# Eazy Level - Order not randomised:
-# e.g. 4 letter, 2 symbol, 2 number = JduE&!91
+    num_list = [choice(numbers) for num in range(randint(2,4))]
+    # for num in range(0, nr_numbers):
+    #     num_list += numbers[random.randint(0, len(numbers) - 1)]
 
+    combine = letter_list + sym_list + num_list
+    shuffle(combine)
 
-# Hard Level - Order of characters randomised:
-# e.g. 4 letter, 2 symbol, 2 number = g^2jk8&P
-
-letter_list = ""
-for char in range(0, nr_letters):
-    letter_list += letters[random.randint(0, len(letters) - 1)]
-
-sym_list = ""
-for sym in range(0, nr_symbols):
-    sym_list += symbols[random.randint(0, len(symbols) - 1)]
-
-num_list = ""
-for num in range(0, nr_numbers):
-    num_list += numbers[random.randint(0, len(numbers) - 1)]
-
-combine = letter_list + sym_list + num_list
-total = nr_letters + nr_symbols + nr_numbers
-
-generate = random.sample(combine, total)
-
-password_generate = "".join(generate)
-
-print(f'{password_generate}')
+    password_generate = "".join(combine)
+    password_entry.insert(0, password_generate)
+    pyperclip.copy(password_generate)
+    messagebox.showinfo(title="Clipboard", message="Copied to Clipboard")
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -103,7 +93,7 @@ password_entry.insert(0, string="")
 password_entry.grid(column=1, row=3)
 
 # Generate password box
-generate_password_button = Button(text="Generate Password", bg=WHITE, borderwidth=0)
+generate_password_button = Button(text="Generate Password", bg=WHITE, borderwidth=0, command=password_generator)
 generate_password_button.grid(column=2, row=3)
 
 # add password box
