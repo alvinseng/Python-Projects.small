@@ -54,17 +54,22 @@ def save():
     if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(title="Oops", message="Please don't leave any fields empty")
     else:
-        with open("data.json", "r") as data:
-            # reading old data
-            data_read = json.load(data)
-            # print(data_read)
+        try:
+            with open("data.json", "r") as data:
+                # reading old data
+                data_read = json.load(data)
+                # print(data_read)
+        except FileNotFoundError:
+            with open("data.json", "w") as data:
+                # Saving updated data
+                json.dump(new_data, data, indent=4)
+        else:
             # Updating old data with new data
             data_read.update(data)
-
-        with open("data.json", "r") as data:
-            # Saving updated data
-            json.dump(new_data, data, indent=4)
-
+            with open("data.json", "w") as data:
+                # Saving updated data
+                json.dump(new_data, data, indent=4)
+        finally:
             website_entry.delete(0, END)
             password_entry.delete(0, END)
 
@@ -83,10 +88,10 @@ canvas.grid(column=1, row=0)
 # website box labels
 website_label = Label(text="Website:", fg=WHITE, font=(FONT_NAME, 15))
 website_label.grid(column=0, row=1)
-website_entry = Entry(width=39, bg=WHITE, fg=BLACK)
+website_entry = Entry(width=22, bg=WHITE, fg=BLACK)
 website_entry.focus()
 website_entry.insert(0, string="")
-website_entry.grid(column=1, row=1, columnspan=2)
+website_entry.grid(column=1, row=1)
 
 # User Label
 user_label = Label(text="Email/Username:", fg=WHITE, font=(FONT_NAME, 15))
@@ -100,7 +105,7 @@ user_entry.grid(column=1, row=2, columnspan=2)
 password_label = Label(text="Password:", fg=WHITE, font=(FONT_NAME, 15))
 password_label.grid(column=0, row=3)
 password_entry = Entry(width=22, bg=WHITE, fg=BLACK, highlightthickness=0)
-password_entry.focus_get()
+password_entry.focus()
 password_entry.insert(0, string="")
 password_entry.grid(column=1, row=3)
 
@@ -111,5 +116,11 @@ generate_password_button.grid(column=2, row=3)
 # add password box
 add_button = Button(text="Add", width=36, bg=WHITE, command=save)
 add_button.grid(column=1, row=4, columnspan=2)
+
+
+search_button = Button(text="Search", width=12, bg=WHITE)
+search_button.grid(column=2, row=1)
+
+
 
 window.mainloop()
