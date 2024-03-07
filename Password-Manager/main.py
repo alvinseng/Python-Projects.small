@@ -35,7 +35,7 @@ def password_generator():
     password_generate = "".join(combine)
     password_entry.insert(0, password_generate)
     pyperclip.copy(password_generate)
-    messagebox.showinfo(title="Clipboard", message="Copied to Clipboard")
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
@@ -54,8 +54,17 @@ def save():
     if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(title="Oops", message="Please don't leave any fields empty")
     else:
-        with open("data.json", "w") as data:
+        with open("data.json", "r") as data:
+            # reading old data
+            data_read = json.load(data)
+            # print(data_read)
+            # Updating old data with new data
+            data_read.update(data)
+
+        with open("data.json", "r") as data:
+            # Saving updated data
             json.dump(new_data, data, indent=4)
+
             website_entry.delete(0, END)
             password_entry.delete(0, END)
 
