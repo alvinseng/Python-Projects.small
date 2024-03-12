@@ -76,15 +76,21 @@ def save():
 # ---------------------------- FIND PASSWORD ------------------------------- #
 
 def find_password():
-
-    searchbar = website_entry.get().title()
+    searchbar = website_entry.get()
     try:
         with open("data.json", "r") as search:
             data_search = json.load(search)
-            if searchbar
-            messagebox.showinfo(message=f"{data_search[searchbar]}")
-    except KeyError:
+    except FileNotFoundError:
         messagebox.showinfo(title="No Info", message="No Data File Found")
+    else:
+        if searchbar in data_search:
+            email = data_search[searchbar]["email"]
+            password = data_search[searchbar]["password"]
+            messagebox.showinfo(message=f"Email: {email}\n Password: {password}")
+        else:
+            messagebox.showinfo(title="Error", message=f"No details for {searchbar} exists")
+
+    searchbar = website_entry.get().title()
     # else:
     #    messagebox.showinfo(title="Try Again", message="No Details for the website exists.")
 
