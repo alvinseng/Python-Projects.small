@@ -73,6 +73,21 @@ def save():
             website_entry.delete(0, END)
             password_entry.delete(0, END)
 
+# ---------------------------- FIND PASSWORD ------------------------------- #
+
+def find_password():
+
+    searchbar = website_entry.get().title()
+    try:
+        with open("data.json", "r") as search:
+            data_search = json.load(search)
+            if searchbar
+            messagebox.showinfo(message=f"{data_search[searchbar]}")
+    except KeyError:
+        messagebox.showinfo(title="No Info", message="No Data File Found")
+    # else:
+    #    messagebox.showinfo(title="Try Again", message="No Details for the website exists.")
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -85,40 +100,40 @@ lock_img = PhotoImage(file="logo.png")
 canvas.create_image(100, 100, image=lock_img)
 canvas.grid(column=1, row=0)
 
-# website box labels
-website_label = Label(text="Website:", fg=WHITE, font=(FONT_NAME, 15))
+# Labels
+website_label = Label(text="Website:", fg=WHITE, font=(FONT_NAME, 20))
 website_label.grid(column=0, row=1)
-website_entry = Entry(width=22, bg=WHITE, fg=BLACK)
+
+user_label = Label(text="Email/Username:", fg=WHITE, font=(FONT_NAME, 20))
+user_label.grid(column=0, row=2)
+
+password_label = Label(text="Password:", fg=WHITE, font=(FONT_NAME, 20))
+password_label.grid(column=0, row=3)
+
+# Entries
+website_entry = Entry(width=22)
+website_entry.grid(column=1, row=1)
 website_entry.focus()
 website_entry.insert(0, string="")
-website_entry.grid(column=1, row=1)
 
-# User Label
-user_label = Label(text="Email/Username:", fg=WHITE, font=(FONT_NAME, 15))
-user_label.grid(column=0, row=2)
-user_entry = Entry(width=39, bg=WHITE, fg=BLACK)
-user_entry.focus_get()
-user_entry.insert(0, string="example@email.com")
+user_entry = Entry(width=39)
 user_entry.grid(column=1, row=2, columnspan=2)
+user_entry.focus()
+user_entry.insert(0, string="example@email.com")
 
-# Password label
-password_label = Label(text="Password:", fg=WHITE, font=(FONT_NAME, 15))
-password_label.grid(column=0, row=3)
-password_entry = Entry(width=22, bg=WHITE, fg=BLACK, highlightthickness=0)
+password_entry = Entry(width=22)
+password_entry.grid(column=1, row=3)
 password_entry.focus()
 password_entry.insert(0, string="")
-password_entry.grid(column=1, row=3)
 
-# Generate password box
-generate_password_button = Button(text="Generate Password", bg=WHITE, borderwidth=0, command=password_generator)
+# Buttons
+generate_password_button = Button(text="Generate Password", command=password_generator)
 generate_password_button.grid(column=2, row=3)
 
-# add password box
 add_button = Button(text="Add", width=36, bg=WHITE, command=save)
 add_button.grid(column=1, row=4, columnspan=2)
 
-
-search_button = Button(text="Search", width=12, bg=WHITE)
+search_button = Button(text="Search", width=12, bg=WHITE, command=find_password)
 search_button.grid(column=2, row=1)
 
 
