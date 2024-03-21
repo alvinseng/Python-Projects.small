@@ -94,7 +94,6 @@ def find_password():
     # else:
     #    messagebox.showinfo(title="Try Again", message="No Details for the website exists.")
 
-
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
