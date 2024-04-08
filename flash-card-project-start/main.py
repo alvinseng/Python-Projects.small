@@ -6,9 +6,14 @@ FONT_NAME = "Ariel"
 import pandas
 import random
 
-data = pandas.read_csv("data/french_words.csv")
-to_learn = data.to_dict(orient="records")
-print(to_learn)
+try:
+    data = pandas.read_csv("data/Words_to_learn.csv")
+        # print(to_learn)
+except FileNotFoundError:
+    original_data = pandas.read_csv("data/french_words.csv")
+    to_learn = original_data.to_dict(orient="records")
+else:
+    to_learn = data.to_dict(orient="records")
 
 def next_card():
     global current_card, flip_timer
@@ -25,6 +30,12 @@ def flip_card():
     canvas.itemconfig(card_word, text=current_card["English"], fill='white')
     canvas.itemconfig(card_background, image=back_img)
 
+def is_known():
+    to_learn.remove(current_card)
+    print(len(to_learn))
+    data = pandas.DataFrame(to_learn)
+    data.to_csv("data/Words_to_learn.csv", index=False)
+    next_card()
 
 # ------ UI Setup -------
 from tkinter import *
@@ -51,7 +62,7 @@ wrong_button.grid(column=0, row=1)
 
 
 correct_img = PhotoImage(file="images/right.png")
-correct_button = Button(image=correct_img, highlightthickness=0, highlightbackground=BACKGROUND_COLOR, command=next_card)
+correct_button = Button(image=correct_img, highlightthickness=0, highlightbackground=BACKGROUND_COLOR, command=is_known)
 correct_button.grid(column=1, row=1)
 
 next_card()
